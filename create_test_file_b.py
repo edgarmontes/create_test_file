@@ -13,12 +13,12 @@ import random
 import string
 
 
-def random_string(string_length):
+def ran_str(string_length):
     letters = string.ascii_uppercase#[ascii_lowercase]|[ascii_letters]
     generated_string = "".join(random.choice(letters) for i in range(string_length))
     return generated_string
 
-def random_number(number_length):
+def ran_num(number_length):
     numbers = string.digits
     generated_number = "".join(random.choice(numbers) for i in range(number_length))
     return generated_number
@@ -27,11 +27,11 @@ def build_file(num_of_records):
     c = 0
     file_layout = {}
     while c < num_of_records:
-        file_layout[random_number(6)] = {
-            "Client Name":random_string(9),
-            "S":random_string(9),
-            "Pharmacy":random_string(9),
-            "Units":int(random_number(6))
+        file_layout[ran_num(6)] = {
+            "DOB":ran_num(2)+"/"+ran_num(2)+"/"+ran_num(4),
+            "First Name":ran_str(9),
+            "Last Name":ran_str(9),
+            "Address":ran_num(5)+" "+ran_str(5)+" "+ran_str(3)+" "+ran_str(5)+" "+ran_str(2)+" "+ran_num(7)
         }
         c += 1
     return file_layout
@@ -39,11 +39,11 @@ def build_file(num_of_records):
 def test_file(file_name,num_of_records):
     #build_file(num_of_records)#Commented out to take different approach
     with open("{}.txt".format(file_name),"w") as f:
-        f.write("ID,Client Name,S,Pharmacy,Units\n")
+        f.write("DOB,Last Name,First Name,Address\n")
         c = 0
         while c < num_of_records:
             print(c)
-            f.write(random_number(6)+","+random_string(9)+","+random_string(9)+","+random_string(9)+","+random_number(6)+"\n")
+            f.write(ran_num(2)+"/"+ran_num(2)+"/"+ran_num(4)+","+ran_str(9)+","+ran_str(9)+","+ran_num(5)+" "+ran_str(5)+" "+ran_str(3)+" "+ran_str(5)+" "+ran_str(2)+" "+ran_num(5)+"\n")
             c += 1
 
 
