@@ -1,5 +1,5 @@
 """
-Program Name:   create_test_file.py
+Program Name:   create_test_file_a.py
 Purpose:        Generate a test file from a given set of variables
 Input files:    N/A
 Output files:   Test file(.txt)
