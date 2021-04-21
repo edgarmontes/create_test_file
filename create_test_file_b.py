@@ -14,14 +14,10 @@ import string
 
 
 def ran_str(string_length):
-    letters = string.ascii_uppercase#[ascii_lowercase]|[ascii_letters]
-    generated_string = "".join(random.choice(letters) for i in range(string_length))
-    return generated_string
+    return "".join(random.choice(string.ascii_uppercase) for i in range(string_length)) #[ascii_lowercase]|[ascii_letters]
 
 def ran_num(number_length):
-    numbers = string.digits
-    generated_number = "".join(random.choice(numbers) for i in range(number_length))
-    return generated_number
+    return "".join(random.choice(string.digits) for i in range(number_length))
 
 def build_file(num_of_records):
     c = 0
