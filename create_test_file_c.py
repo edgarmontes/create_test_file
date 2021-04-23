@@ -12,6 +12,7 @@ start_time = time.time()
 import random
 import string
 import re
+from randomtimestamp import randomtimestamp
 
 
 ran_str = lambda string_length: "".join(random.choice(string.ascii_uppercase).strip() for i in range(string_length)) #[ascii_lowercase]|[ascii_letters]
@@ -20,7 +21,7 @@ ran_num = lambda number_length: "".join(random.choice(string.digits).strip() for
 # Layout for the record
 def generate_record():
     record = f"""
-            {ran_num(2)}/{ran_num(2)}/{ran_num(4).strip()}
+            {randomtimestamp(start_year=1920).split()[0]}
             ,{ran_str(9)}
             ,{ran_str(9)}
             ,{ran_num(5)} {ran_str(9)} {ran_str(3)},{""},{ran_str(5)},{ran_str(2)},{ran_num(5)}
@@ -31,7 +32,7 @@ def generate_record():
 
 def test_file(file_name,num_of_records):
     with open("{}.txt".format(file_name),"w") as f:
-        f.write("DOB,Last Name,First Name,Address 1,Address 2,City,State,Zip Code\n")
+        f.write("DOB(DD-MM-YYYY),Last Name,First Name,Address 1,Address 2,City,State,Zip Code\n")
         c = 0
         while c < num_of_records:
             print(c)
