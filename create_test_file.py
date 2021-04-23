@@ -1,44 +1,53 @@
 """
 Program Name:   create_test_file.py
-Purpose:        Generate a test file from a given set of variables
+Purpose:        Generate a test file from a given set of columns
 Input files:    N/A
 Output files:   Test file(.txt)
 Author:         Edgar Montes
-Date created:   03.28.2021
+Date created:   04.22.2021
 Version:        V3
 """
 import time
 start_time = time.time()
 import random
 import string
+import re
+from randomtimestamp import randomtimestamp
 
 
-def random_string(string_length):
-    letters = string.ascii_uppercase#[ascii_lowercase]|[ascii_letters]
-    generated_string = "".join(random.choice(letters) for i in range(string_length))
-    return generated_string
+ran_str = lambda string_length: "".join(random.choice(string.ascii_uppercase).strip() for i in range(string_length)) #[ascii_lowercase]|[ascii_letters]
+ran_num = lambda number_length: "".join(random.choice(string.digits).strip() for i in range(number_length))
 
-def random_number(number_length):
-    numbers = string.digits
-    generated_number = "".join(random.choice(numbers) for i in range(number_length))
-    return generated_number
+# Generate random values based on the header
+def generate_record():
+    record = f"""
+            {randomtimestamp(start_year=1920).split()[0]}
+            ,{ran_str(9)}
+            ,{ran_str(9)}
+            ,{ran_num(5)} {ran_str(9)} {ran_str(3)}
+            ,{""}
+            ,{ran_str(5)}
+            ,{ran_str(2)}
+            ,{ran_num(5)}
+            """
+    aux = re.sub("\s","",record)
+    return aux
 
 
 def test_file(file_name,num_of_records):
     with open("{}.txt".format(file_name),"w") as f:
-        header = "ID,Client Name,S,Pharmacy,Units\n"
-        f.write(header)
+        # Define header for the test file
+        f.write("DOB(DD-MM-YYYY),Last Name,First Name,Address 1,Address 2,City,State,Zip Code\n")
         c = 0
-        d = "," # Define file delimiter
         while c < num_of_records:
             print(c)
-            f.write(random_number(6)+d+random_string(9)+d+random_string(9)+d+random_string(9)+d+random_number(6)+"\n")
+            f.write(generate_record()+"\n")
             c += 1
 
 
 if __name__ == "__main__":
-    test_file("tf",20000)
-
+    # Enter file name and number of records needed for the test file
+    test_file("the_file_name",2000)
 
 
 total_time = time.time()-start_time
