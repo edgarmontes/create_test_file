@@ -5,7 +5,7 @@ Input files:    N/A
 Output files:   Test file(.txt)
 Author:         Edgar Montes
 Date created:   04.22.2021
-Version:        V3
+Version:        V1
 """
 import time
 start_time = time.time()
@@ -33,11 +33,11 @@ def generate_record():
     aux = re.sub("\s","",record)
     return aux
 
-
+# Define header for the test file
+header = "DOB(DD-MM-YYYY),Last Name,First Name,Address 1,Address 2,City,State,Zip Code\n"
 def test_file(file_name,num_of_records):
     with open("{}.txt".format(file_name),"w") as f:
-        # Define header for the test file
-        f.write("DOB(DD-MM-YYYY),Last Name,First Name,Address 1,Address 2,City,State,Zip Code\n")
+        f.write(header)
         c = 0
         while c < num_of_records:
             print(c)
