@@ -18,36 +18,38 @@ from randomtimestamp import randomtimestamp
 ran_str = lambda string_length: "".join(random.choice(string.ascii_uppercase).strip() for i in range(string_length)) #[ascii_lowercase]|[ascii_letters]
 ran_num = lambda number_length: "".join(random.choice(string.digits).strip() for i in range(number_length))
 
-# Generate random values based on the header
-def generate_record():
-    record = f"""
-            {randomtimestamp(start_year=1920).split()[0]}
-            ,{ran_str(9)}
-            ,{ran_str(9)}
-            ,{ran_num(5)} {ran_str(9)} {ran_str(3)}
-            ,{""}
-            ,{ran_str(5)}
-            ,{ran_str(2)}
-            ,{ran_num(5)}
-            """
-    aux = re.sub("\s","",record)
-    return aux
+# Define file name, number of records and delimiter
+of = "the_file_name.txt"
+nor = 10000
+dlm = "|"
 
-# Define header for the test file
-header = "DOB(DD-MM-YYYY),Last Name,First Name,Address 1,Address 2,City,State,Zip Code\n"
-def test_file(file_name,num_of_records):
-    with open("{}.txt".format(file_name),"w") as f:
-        f.write(header)
+# Build test file
+def generate_test_file(output_file,num_of_records):
+    with open(output_file,"w") as f: 
         c = 0
         while c < num_of_records:
             print(c)
-            f.write(generate_record()+"\n")
+            # Define file layout
+            file_layout = {
+                "DOB(DD-MM-YYYY)":randomtimestamp(start_year=1920).split()[0],
+                "First Name":ran_str(9),
+                "Last Name":ran_str(9),
+                "Address 1":" ".join([ran_num(5),ran_str(9),ran_str(3)]),
+                "Address 2":"",
+                "City":ran_str(5),
+                "State":ran_str(2),
+                "Zip Code":ran_num(5),
+            }
+            if c == 0:
+                f.write(dlm.join([k for k in file_layout.keys()])+"\n")
+            else:
+                f.write(dlm.join([v for v in file_layout.values()])+"\n")
             c += 1
 
 
 if __name__ == "__main__":
-    # Enter file name and number of records needed for the test file
-    test_file("the_file_name",2000)
+    generate_test_file(of,nor)
+
 
 
 total_time = time.time()-start_time
